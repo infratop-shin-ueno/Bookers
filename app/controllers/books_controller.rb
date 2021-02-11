@@ -3,6 +3,7 @@ class BooksController < ApplicationController
   end
   def index
     @books = Book.all
+    @book = Book.new
   end
   def new
     @book = Book.new(book_params)
@@ -31,7 +32,7 @@ class BooksController < ApplicationController
 
   def update
     @book = Book.find(params[:id])
-    if @book.update(book_params2)
+    if @book.update(book_params)
       redirect_to book_path(@book)
       flash[:notice] = "Book was successfully updateed."
     else
@@ -47,10 +48,9 @@ class BooksController < ApplicationController
   end
 
   private
+
+
   def book_params
-    params.permit(:title, :body)
-  end
-  def book_params2
     params.require(:book).permit(:title, :body)
   end
 

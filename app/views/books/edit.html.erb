@@ -1,14 +1,17 @@
 <h1>Editing Book</h1>
 <!-- form_with部分 -->
-<%= form_with model:@book, local: true do |f| %>
+<% if @book  %>
   <% if @book.errors.any? %>
-        <h3>入力した内容にエラーが<%= @book.errors.count %>件あります</h3>
+          <h3><%= @book.errors.count %> errors prohibited this book from being saved:</h3>
           <ul style="color: red">
             <% @book.errors.full_messages.each do |message| %>
             <li><%= message %></li>
             <% end %>
           </ul>
   <% end %>
+<% end %>
+<%= form_with model:@book, local: true do |f| %>
+
   <h4>Title</h4>
   <%= f.text_field :title %>
   <h4>Body</h4>
